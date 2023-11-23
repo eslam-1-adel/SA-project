@@ -8,12 +8,12 @@ class AuthController
     //1. Open connection.
     //2. Run query & logic.
     //3. Close connection
-    public function login(User $user)
+    public function login($user,$password)
     {
         $this->db=new DBController;
         if($this->db->openConnection())
         {
-            $query="select * from users where email='$user->email' and password ='$user->password'";
+            $query="select * from users where username='$user' and password='$password'";
             $stmt=$this->db->select($query);
             if($stmt===false)
             {
@@ -24,24 +24,11 @@ class AuthController
             {
                 if(count($stmt)==0)
                 {
-                    session_start();
-                    $_SESSION["errMsg"]="You have entered wrong email or password";
-                    $this->db->closeConnection();
+                    echo "You have entered wrong email or password";
                     return false;
                 }
                 else
                 {
-                    session_start();
-                    $_SESSION["userId"]=$stmt[0]["id"];
-                    $_SESSION["userName"]=$stmt[0]["name"];
-                    if($stmt[0]["roleId"]==1)
-                    {
-                        $_SESSION["userRole"]="Admin";
-                    }
-                    else
-                    {
-                        $_SESSION["userRole"]="Client";
-                    }
                     $this->db->closeConnection();
                     return true;
                 }

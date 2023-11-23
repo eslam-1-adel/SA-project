@@ -1,3 +1,16 @@
+<?php
+require_once"authcontroller/Authcontroller.php";
+$name="";
+$password="";
+if(isset($_POST["name"])&&isset($_POST["password"])){
+  if(!empty($_POST["name"])&&!empty($_POST["password"])){
+    $name=$_POST["name"];
+    $password=$_POST["password"];
+    $auth=new AuthController;
+    $auth->login($name,$password);
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -111,7 +124,7 @@
         <div class="row justify-content-between gy-4">
 
           <div class="col-lg-6" data-aos="fade">
-          <form method="post" action="movies.php"  >
+          <form method="post"  >
     <h3>Log-in</h3>
     <div class="row gy-3">
         <div class="col-md-12">
