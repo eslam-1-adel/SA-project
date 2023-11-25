@@ -64,27 +64,19 @@ class AuthController
     }
     
 
-public function checkTicket($ref){
+public function admin($name,$des,$cat,$hall,$price,$time,$image){
+    
     $this->db= new dbcontroller ;
     if($this->db->openConnection()){
-        $sql = "select * from ticket where ticket_no = '$ref'";
-        $stmt = $this->db->select($sql);
-        if (!$stmt) {
-            echo "Error In Query";
-            return false;
-        } else {
-            if (count($stmt) == 0) {
-                echo "gflkfdlgdfs";
+        $sql = "insert into admin (name,description,category,Hname,price,time,image) values ('$name','$des','$cat','$hall','$price','$time','$image')";
+        try{$stmt = $this->db->insert($sql);
+            return true;}
+            catch(Exception $e){
                 return false;
-            } else {
-                return true;
             }
     }
 }
-else {
-    echo "connection false" ;
-}
-}
+
 public function timeTicket( $ref){
     $this->db= new dbcontroller ;
     if($this->db->openConnection()){
@@ -112,13 +104,13 @@ public function sendReason(refund $ref){
         $this->db->insert($sql2);
 }
 }
-public function SelectSt(&$num){
+public function SelectHall(&$num){
     $this->db= new dbcontroller ;
     if($this->db->openConnection()){
-        $sql1="select COUNT(*) from station";
+        $sql1="select COUNT(*) from halls";
         $res= $this->db->select($sql1);
         $num = $res[0]["COUNT(*)"];
-        $sql2= "select name from station";
+        $sql2= "select name from halls";
         return $this->db->select($sql2);
 }
 }
