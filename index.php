@@ -1,15 +1,45 @@
 <?php
-require_once"authcontroller/Authcontroller.php";
+require_once "authcontroller/Authcontroller.php";
 $name="";
 $password="";
+$error1="";
+$error2="";
 if(isset($_POST["name"])&&isset($_POST["password"])){
   if(!empty($_POST["name"])&&!empty($_POST["password"])){
     $name=$_POST["name"];
     $password=$_POST["password"];
     $auth=new AuthController;
-    $auth->login($name,$password);
+    $login_result=$auth->login($name,$password);
+    if ($login_result === true) {
+      // Successful login, redirect to a success page or perform actions
+      header("Location: movies.php");
+      exit();
+      } else {
+          // Failed login, set an error message
+          $error1 = "Invalid username ";
+      }
+    }
   }
-}
+
+
+  if(isset($_POST["newname"])&&isset($_POST["newpassword"])&&isset($_POST["newphone"])){
+    if(!empty($_POST["newname"])&&!empty($_POST["newpassword"])&&!empty($_POST["newphone"])){
+      $name=$_POST["newname"];
+      $password=$_POST["newpassword"];
+      $phone=$_POST["newphone"];
+      $auth=new AuthController;
+      $login_result=$auth->register($name,$password,$phone);
+      if ($login_result === true) {
+        // Successful login, redirect to a success page or perform actions
+        header("Location: movies.php");
+        exit();
+        } else {
+            // Failed login, set an error message
+            $error2 = "Invalid username ";
+        }
+      }
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -127,10 +157,13 @@ if(isset($_POST["name"])&&isset($_POST["password"])){
           <form method="post"  >
     <h3>Log-in</h3>
     <div class="row gy-3">
+      <?php if($error1!="")
+        echo '<div class="alert alert-danger" role="alert">Email or Password is not correct !</div>';
+      ?>
         <div class="col-md-12">
             <input type="text" name="name" class="form-control" placeholder="User Name" required>
         </div>
-
+        
         <div class="col-md-12">
             <input type="password" class="form-control" name="password" placeholder="Password" required>
         </div>
@@ -144,19 +177,22 @@ if(isset($_POST["name"])&&isset($_POST["password"])){
           </div><!-- End Quote Form -->
 
           <div class="col-lg-6" data-aos="fade">
-            <form action="movies.php" method="post" >
+            <form method="post" >
               <h3>Sign-up</h3>
               <div class="row gy-3">
+              <?php if($error2!="")
+        echo '<div class="alert alert-danger" role="alert">Username is Already Taken!</div>';
+      ?>
                 <div class="col-md-12">
-                  <input type="text" name="name" class="form-control" placeholder="User Name" required>
+                  <input type="text" name="newname" class="form-control" placeholder="User Name" required>
                 </div>
 
                 <div class="col-md-12 ">
-                  <input type="password" class="form-control" name="password" placeholder="password" required>
+                  <input type="password" class="form-control" name="newpassword" placeholder="password" required>
                 </div>
 
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="phone" placeholder="Phone" required>
+                  <input type="text" class="form-control" name="newphone" placeholder="Phone" required>
                 </div>
 
                 <div class="col-md-12 text-center">

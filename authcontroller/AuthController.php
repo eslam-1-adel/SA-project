@@ -17,14 +17,12 @@ class AuthController
             $stmt=$this->db->select($query);
             if($stmt===false)
             {
-                echo "Error in Query";
                 return false;
             }
             else
             {
                 if(count($stmt)==0)
                 {
-                    echo "You have entered wrong email or password";
                     return false;
                 }
                 else
@@ -40,28 +38,18 @@ class AuthController
             return false;
         }
     }
-    public function register(User $user)
+    public function register($name,$password,$phone)
     {
         $this->db=new DBController;
         if($this->db->openConnection())
         {
-            $query="insert into users values ('','$user->name','$user->email','$user->password',2)";
-            $stmt=$this->db->insert($query);
-            if($stmt!=false)
-            {
-                session_start();
-                $_SESSION["userId"]=$stmt;
-                $_SESSION["userName"]=$user->name;
-                $_SESSION["userRole"]="Client";
-                $this->db->closeConnection();
-                return true;
-            }
-            else
-            {
-                $_SESSION["errMsg"]="Somthing went wrong... try again later";
-                $this->db->closeConnection();
+            $query="insert into users (username,password,telephone) values ('$name','$password','$phone')";
+            try{$stmt=$this->db->insert($query);
+            return true;}
+            catch(Exception $e){
                 return false;
             }
+            
         }
         else
         {
