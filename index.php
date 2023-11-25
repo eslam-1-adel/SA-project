@@ -10,11 +10,16 @@ if(isset($_POST["name"])&&isset($_POST["password"])){
     $password=$_POST["password"];
     $auth=new AuthController;
     $login_result=$auth->login($name,$password);
-    if ($login_result === true) {
+    if ($login_result === 1) {
       // Successful login, redirect to a success page or perform actions
       header("Location: movies.php");
       exit();
-      } else {
+      }
+      else if ($login_result === 2) {
+        // Successful login, redirect to a success page or perform actions
+        header("Location: admin.php");
+        exit();
+        } else {
           // Failed login, set an error message
           $error1 = "Invalid username ";
       }

@@ -17,19 +17,24 @@ class AuthController
             $stmt=$this->db->select($query);
             if($stmt===false)
             {
-                return false;
+                return 0;
             }
             else
             {
                 if(count($stmt)==0)
                 {
-                    return false;
+                    return 0;
                 }
-                else
+                else if($stmt[0]['username']==='admin')
                 {
                     $this->db->closeConnection();
-                    return true;
+                    return 2;
                 }
+                else{
+                    $this->db->closeConnection();
+                    return 1;
+                }
+                
             }
         }
         else
