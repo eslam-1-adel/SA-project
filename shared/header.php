@@ -25,8 +25,9 @@ $header=basename($_SERVER['PHP_SELF']);//movies.php
     echo '<li><a href="shows.php" ' . ($header == 'shows.php' ? 'class="active"' : '') . '>TV Shows</a></li>';
     echo '<li><a href="plays.php" ' . ($header == 'plays.php' ? 'class="active"' : '') . '>Live Plays</a></li>';
     echo '<li><a href="Standup.php" ' . ($header == 'Standup.php' ? 'class="active"' : '') . '>Standup Comedy</a></li>';
+    echo '<li><a href="refund.php" ' . ($header == 'refund.php' ? 'class="active"' : '') . '>My Ticket</a></li>';
     echo '<li><a href="about.php" ' . ($header == 'about.php' ? 'class="active"' : '') . '>About</a></li>';
-?>
+    ?>
 
 
       </nav><!-- .navbar -->
