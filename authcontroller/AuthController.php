@@ -237,5 +237,29 @@ public function insertTick( $del1,$del2,$del3,$del4){
 
 }
 }
+
+public function my_ticket($user){
+    $this->db= new dbcontroller ;
+    if($this->db->openConnection()){
+        $sql = "select ticket.id,ticket.ticket_num,admin.name,admin.description,admin.Hname,admin.price,admin.time,admin.image from ticket join admin on ticket.movie_id=admin.id where ticket.users_id=$user;";
+       try{
+        $stmt = $this->db->select($sql);
+        return $stmt;
+        }
+        catch(Exception $e){
+            echo "fsfdsdfsdf";
+            return $ar[1][2] ;
+        }
+        
 }
+else {
+    echo "connection false" ;
+}
+}
+
+}
+
+
+
+
 ?>
