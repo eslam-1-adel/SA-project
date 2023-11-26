@@ -90,7 +90,7 @@ for ($x = 0; $x < $row; $x++) {
             $price=$ar[$index]['price'];
             echo "<div class='col-lg-4 col-md-6' data-aos='fade-up' data-aos-delay='100'>";
             echo "<div class='service-item  position-relative'>";
-            echo "<img src='' alt='Icon Image'>";
+            echo "<img src='$img'  alt='Icon Image' width='300' height='200'>";
             echo "<h3>$name</h3>";
             echo "<p>$des</p>";
             echo "<p>Hall:  $hname</p>";
