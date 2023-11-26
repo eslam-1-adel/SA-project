@@ -1,3 +1,9 @@
+<?php
+require_once "authcontroller/Authcontroller.php";
+$auth = new AuthController;
+$number=0;
+$header=basename($_SERVER['PHP_SELF']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 

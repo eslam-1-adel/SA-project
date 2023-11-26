@@ -64,11 +64,11 @@ class AuthController
     }
     
 
-public function admin($name,$des,$cat,$hall,$price,$time,$image){
+public function admin($name,$des,$cat,$hall,$price,$time,$image,$link){
     
     $this->db= new dbcontroller ;
     if($this->db->openConnection()){
-        $sql = "insert into admin (name,description,category,Hname,price,time,image) values ('$name','$des','$cat','$hall','$price','$time','$image')";
+        $sql = "insert into admin (name,description,category,Hname,price,time,image,link) values ('$name','$des','$cat','$hall','$price','$time','$image','$link')";
         try{$stmt = $this->db->insert($sql);
             return true;}
             catch(Exception $e){
@@ -114,6 +114,28 @@ public function SelectHall(&$num){
         return $this->db->select($sql2);
 }
 }
+public function Selectuser(&$num,$header){
+    $this->db= new dbcontroller ;
+    if($this->db->openConnection()){
+        if($header=='movies.php'){
+            $newheader=1;
+        }
+        else if($header=='shows.php'){
+            $newheader=2;
+        }
+        else if($header=='plays.php'){
+            $newheader=3;
+        }
+        else{
+            $newheader=4;
+        }
+        $sql1="select COUNT(*) from admin where category='$newheader'";
+        $res= $this->db->select($sql1);
+        $num = $res[0]["COUNT(*)"];
+        $sql2= "select `name`,`description`,`Hname`,`time`,`price`,`image`,`link` from `admin` where category='$newheader'";
+        return $this->db->select($sql2);
+}
+}
 public function Showtrains(&$number1,&$number2,$result1,$result2){
     $this->db= new dbcontroller ;
     if($this->db->openConnection()){
@@ -121,6 +143,7 @@ public function Showtrains(&$number1,&$number2,$result1,$result2){
         $res= $this->db->select($sql1);
         $num = $res[0]["COUNT(*)"];
         $sql2= "select name from station";
+
         return $this->db->select($sql2);
 }
 }
@@ -237,29 +260,5 @@ public function insertTick( $del1,$del2,$del3,$del4){
 
 }
 }
-
-public function my_ticket($user){
-    $this->db= new dbcontroller ;
-    if($this->db->openConnection()){
-        $sql = "select ticket.id,ticket.ticket_num,admin.name,admin.description,admin.Hname,admin.price,admin.time,admin.image from ticket join admin on ticket.movie_id=admin.id where ticket.users_id=$user;";
-       try{
-        $stmt = $this->db->select($sql);
-        return $stmt;
-        }
-        catch(Exception $e){
-            echo "fsfdsdfsdf";
-            return $ar[1][2] ;
-        }
-        
 }
-else {
-    echo "connection false" ;
-}
-}
-
-}
-
-
-
-
 ?>

@@ -3,9 +3,8 @@ require_once "authcontroller/Authcontroller.php";
 $auth = new AuthController;
 $number=0;
 $results = $auth ->SelectHall($number);
-
-if(isset($_POST["movieName"])&&isset($_POST["description"])&&isset($_POST["category"])&&isset($_POST["Hall"])&&isset($_POST["quantity"])&&isset($_POST["timeSlot"])&&isset($_POST["image"])){
-  if(!empty($_POST["movieName"])&&!empty($_POST["description"])&&!empty($_POST["category"])&&!empty($_POST["Hall"])&&!empty($_POST["quantity"])&&!empty($_POST["timeSlot"])&&!empty($_POST["image"])){
+if(isset($_POST["movieName"])&&isset($_POST["description"])&&isset($_POST["category"])&&isset($_POST["Hall"])&&isset($_POST["quantity"])&&isset($_POST["timeSlot"])&&isset($_POST["image"])&&isset($_POST["link"])){
+  if(!empty($_POST["movieName"])&&!empty($_POST["description"])&&!empty($_POST["category"])&&!empty($_POST["Hall"])&&!empty($_POST["quantity"])&&!empty($_POST["timeSlot"])&&!empty($_POST["image"])&&!empty($_POST["link"])){
     $name = $_POST["movieName"];
     $des = $_POST["description"];
     if($_POST["category"]=='Movies'){
@@ -24,7 +23,8 @@ if(isset($_POST["movieName"])&&isset($_POST["description"])&&isset($_POST["categ
     $price = $_POST["quantity"];
     $time = $_POST["timeSlot"];
     $image= $_POST["image"];
-    $auth->admin($name,$des,$cat,$hall,$price,$time,$image);
+    $link= $_POST["link"];
+    $auth->admin($name,$des,$cat,$hall,$price,$time,$image,$link);
   }
 }
 ?>
@@ -181,6 +181,14 @@ if(isset($_POST["movieName"])&&isset($_POST["description"])&&isset($_POST["categ
       </td>
       <td>
         <input type="text" id="image" name="image" style="width:400px; height:23px;">
+      </td>
+    </tr>
+    <tr style="border-bottom: 3px solid #ccc;">
+      <td style="border-right: 3px solid #ccc;">
+        <label for="youtubelink" style="color:red; font-size:20px; font-weight:bold;">Trailer Link:</label>
+      </td>
+      <td>
+        <input type="text" id="linj" name="link" style="width:400px; height:23px;">
       </td>
     </tr>
     <tr>
