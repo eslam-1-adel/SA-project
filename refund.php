@@ -1,16 +1,3 @@
-<?php
-require_once "authcontroller/Authcontroller.php";
-$ticket_id=0;
-if(isset($_POST['ticket_id'])){
-  $ticket_id=$_POST['ticket_id'];
-  $auth=new AuthController;
-  $auth->del_tic($ticket_id);
-
-}
-
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -96,12 +83,11 @@ for ($x = 0; $x < $row; $x++) {
             $id = $ar[$index]['id'];
             $img = $ar[$index]['image'];
             $des = $ar[$index]['description'];
-            $name = $ar[$index]['name'];
-            $ticket_num = $ar[$index]['ticket_num'];
-            $hname = $ar[$index]['Hname'];
-            $time = $ar[$index]['time'];
-            $price = $ar[$index]['price'];
-
+            $name= $ar[$index]['name'];
+            $ticket_num=$ar[$index]['ticket_num'];
+            $hname=$ar[$index]['Hname'];
+            $time=$ar[$index]['time'];
+            $price=$ar[$index]['price'];
             echo "<div class='col-lg-4 col-md-6' data-aos='fade-up' data-aos-delay='100'>";
             echo "<div class='service-item  position-relative'>";
             echo "<img src='$img'  alt='Icon Image' width='300' height='200'>";
@@ -110,13 +96,8 @@ for ($x = 0; $x < $row; $x++) {
             echo "<p>Hall:  $hname</p>";
             echo "<p>Time:  $time</p>";
             echo "<p>Price: $price</p>";
-            echo "<p>Ticket ID: $id</p>";
             echo "<p>Ticket Nummber: $ticket_num</p>";
-            echo "<form action='refund.php' method ='post'>";
-            
-            // Add a hidden input field to carry the ticket ID
-            echo "<input type='hidden' name='ticket_id' value='$id'>";
-            
+            echo "<form action='refund.php' method ='post' >";
             echo "<button type='submit' class='btn btn-warning'  style='margin-top: 10px;' formaction='refund.php'>Refund</button>";
             echo "</form>";
             echo "</div>";
@@ -127,7 +108,6 @@ for ($x = 0; $x < $row; $x++) {
     echo "</div>";
 }
 ?>
-
 
 
 
