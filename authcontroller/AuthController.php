@@ -267,6 +267,68 @@ public function insertTick( $del1,$del2,$del3,$del4){
         $sql = "insert into `ticket` (`trip_no`,`start`,`end`, `source`, `destination`,`price`) VALUES ('$del1', '$del2','$del3','$del5','$del6' ,'$del4')";
         $this->db->insert($sql);
 
+public function my_ticket($user){
+    $this->db= new dbcontroller ;
+    if($this->db->openConnection()){
+        $sql = "select ticket.id,ticket.ticket_num,admin.name,admin.description,admin.Hname,admin.price,admin.time,admin.image from ticket join admin on ticket.movie_id=admin.id where ticket.users_id=$user;";
+       try{
+        $stmt = $this->db->select($sql);
+        return $stmt;
+        }
+        catch(Exception $e){
+            echo "fsfdsdfsdf";
+            return $ar[1][2] ;
+        }
+        
+}
+else {
+    echo "connection false" ;
+}
+}
+public function del_tic ($ticket_id){
+    $this->db= new dbcontroller ;
+   
+    if($this->db->openConnection()){
+        $sql = "delete from `ticket` where `id`=$ticket_id";
+        try{
+          $stmt=$this->db->delete($sql);
+        }catch (Exception $e){
+            
+echo "dfsfsdfsdf";
+        }
+
+}
+}
+public function my_ticket($user){
+    $this->db= new dbcontroller ;
+    if($this->db->openConnection()){
+        $sql = "select ticket.id,ticket.ticket_num,admin.name,admin.description,admin.Hname,admin.price,admin.time,admin.image from ticket join admin on ticket.movie_id=admin.id where ticket.users_id=$user;";
+       try{
+        $stmt = $this->db->select($sql);
+        return $stmt;
+        }
+        catch(Exception $e){
+            echo "fsfdsdfsdf";
+            return $ar[1][2] ;
+        }
+        
+}
+else {
+    echo "connection false" ;
+}
+}
+public function del_tic ($ticket_id){
+    $this->db= new dbcontroller ;
+   
+    if($this->db->openConnection()){
+        $sql = "delete from `ticket` where `id`=$ticket_id";
+        try{
+          $stmt=$this->db->delete($sql);
+        }catch (Exception $e){
+            
+echo "dfsfsdfsdf";
+        }
+
 }
 }
 }
