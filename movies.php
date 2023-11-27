@@ -74,7 +74,7 @@ if(isset($_POST['quantity'])){
         </ol>
 
       </div>
-    </div><!-- End Breadcrumbs -->
+    </div>
 
     <!-- ======= Services Section ======= -->
     <section id="blog" class="blog">
@@ -89,6 +89,7 @@ select {
     background-color: transparent;
     -webkit-appearance: none;
     -moz-appearance: none;
+    pointer-events: none;
     appearance: none;
     padding: 0; /* Adjust padding if necessary */
     font-family: inherit;
@@ -99,7 +100,7 @@ select {
 
         </style>
       <?php for ($i = 0; $i < $number; $i++) {
-        echo '<div class="col-xl-4 col-md-6"><form action"#" method="POST"><div class="post-item position-relative h-100">';
+        echo '<div class="col-xl-4 col-md-6"><form action"#" method="post"><div class="post-item position-relative h-100">';
         
               echo'<div class="post-img position-relative overflow-hidden"><img src="'.$results[$i]['image'].'" style="width:500px;height:320px"class="img-fluid" alt=""><select class="post-date" name="date" id="date"><option>' . $results[$i]['date'] . '</option></select></div>';
 
@@ -178,6 +179,10 @@ select {
         prevEl: ".swiper-button-prev",
       },
     });
+    function disableSelect(select) {
+  select.disabled = true;
+}
+
   </script>
   
   <script src="./assets/js/script.js"></script>
