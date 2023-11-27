@@ -314,8 +314,7 @@ public function my_ticket($user){
         return $stmt;
         }
         catch(Exception $e){
-            echo "fsfdsdfsdf";
-            return $ar[1][2] ;
+            return $e ;
         }
         
 }
@@ -332,7 +331,6 @@ public function del_tic ($ticket_id){
           $stmt=$this->db->delete($sql);
         }catch (Exception $e){
             
-echo "dfsfsdfsdf";
         }
 
 }
