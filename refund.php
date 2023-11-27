@@ -79,9 +79,8 @@ if(isset($_POST['ticket_id'])){
 
       <?php
 require_once "authcontroller/Authcontroller.php";
-$user = 2;
 $auth = new AuthController;
-$ar = $auth->my_ticket($user);
+$ar = $auth->my_ticket($id);
 $ar_row = count($ar);
 $col = 3; // Number of columns
 $row = ceil($ar_row / $col); // Use ceil to round up if there are remaining rows
