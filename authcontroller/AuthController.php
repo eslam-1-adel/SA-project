@@ -181,6 +181,28 @@ public function Selectuser(&$num,$header){
         return $this->db->select($sql2);
 }
 }
+public function Selectadmin(&$num,$header){
+    $this->db= new dbcontroller ;
+    if($this->db->openConnection()){
+        if($header=='movie'){
+            $newheader=1;
+        }
+        else if($header=='shows'){
+            $newheader=2;
+        }
+        else if($header=='plays'){
+            $newheader=3;
+        }
+        else{
+            $newheader=4;
+        }
+        $sql1="select COUNT(*) from admin where category='$newheader'";
+        $res= $this->db->select($sql1);
+        $num = $res[0]["COUNT(*)"];
+        $sql2= "select `name`,`description`,`Hname`,`time`,`price`,`date`,`image` from `admin` where category='$newheader'";
+        return $this->db->select($sql2);
+}
+}
 public function Showtrains(&$number1,&$number2,$result1,$result2){
     $this->db= new dbcontroller ;
     if($this->db->openConnection()){
@@ -327,6 +349,19 @@ public function del_tic ($ticket_id){
    
     if($this->db->openConnection()){
         $sql = "delete from `ticket` where `id`=$ticket_id";
+        try{
+          $stmt=$this->db->delete($sql);
+        }catch (Exception $e){
+            
+        }
+
+}
+}
+public function admremove ($name,$hall,$time,$date){
+    $this->db= new dbcontroller ;
+   
+    if($this->db->openConnection()){
+        $sql = "delete from `admin` where `name`='$name' and `Hname`='$hall' and `time` ='$time' and `date` ='$date'" ;
         try{
           $stmt=$this->db->delete($sql);
         }catch (Exception $e){
