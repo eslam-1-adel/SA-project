@@ -160,7 +160,7 @@ if(isset($_POST["movieName"])&&isset($_POST["description"])&&isset($_POST["categ
         <label for="quantity" style="color:red; font-size:20px; font-weight:bold;">Price Of Ticket:</label>
       </td>
       <td>
-        <input type="number" id="quantity" name="quantity" min="30" max="100" style="width:400px; height:23px;">
+        <input type="number" id="quantity" name="quantity" min="30" max="400" style="width:400px; height:23px;">
       </td>
     </tr>
     <tr style="border-bottom: 3px solid #ccc;">
