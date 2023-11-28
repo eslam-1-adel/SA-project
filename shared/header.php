@@ -29,9 +29,13 @@ $header=basename($_SERVER['PHP_SELF']);//movies.php
     echo '<li><a href="Standup.php" ' . ($header == 'Standup.php' ? 'class="active"' : '') . '>Standup Comedy</a></li>';
     echo '<li><a href="refund.php" ' . ($header == 'refund.php' ? 'class="active"' : '') . '>My Ticket</a></li>';
     echo '<li><a href="about.php" ' . ($header == 'about.php' ? 'class="active"' : '') . '>About</a></li>';
-    echo '<li><a href="">Welcome '.$_SESSION['username'].'</a></li>';
+    echo '<li><a href="#" onclick="preventAccess()">Welcome '.$_SESSION['username'].'</a></li>';
     ?>
-
+    <script>
+    function preventAccess() {
+        event.preventDefault();
+    }
+</script>
 
       </nav><!-- .navbar -->
 
