@@ -143,7 +143,7 @@ public function insrtick($name,$hall,$time,$date,$quantity,$id){
         $sql1="select `id` from admin where name='$name'and Hname='$hall'and time='$time'and date='$date'";
         $res1=$this->db->select($sql1);
         $mvid=$res1[0]["id"];
-        $sql2 = "insert into ticket (movie_id, users_id, ticket_num) VALUES ('$mvid','$id','$quantity')";
+        $sql2 = "insert into ticket (movie_id, users_id, ticket_num,nme) VALUES ('$mvid','$id','$quantity','$hall')";
         $this->db->insert($sql2);
 }
 }
@@ -157,7 +157,6 @@ public function SelectHall(&$num){
         return $this->db->select($sql2);
 }
 }
-
 
 public function Selectuser(&$num,$header){
     $this->db= new dbcontroller ;
@@ -177,7 +176,7 @@ public function Selectuser(&$num,$header){
         $sql1="select COUNT(*) from admin where category='$newheader'";
         $res= $this->db->select($sql1);
         $num = $res[0]["COUNT(*)"];
-        $sql2= "select `name`,`description`,`Hname`,`time`,`price`,`date`,`image`,`link` from `admin` where category='$newheader'";
+        $sql2= "select `id`,`name`,`description`,`Hname`,`time`,`price`,`date`,`image`,`link` from `admin` where category='$newheader'";
         return $this->db->select($sql2);
 }
 }
@@ -203,15 +202,45 @@ public function Selectadmin(&$num,$header){
         return $this->db->select($sql2);
 }
 }
-public function Showtrains(&$number1,&$number2,$result1,$result2){
+public function handle(&$num,$header){
     $this->db= new dbcontroller ;
     if($this->db->openConnection()){
-        $sql1="select name from station WHERE no BETWEEN 1 and 3";
-        $res= $this->db->select($sql1);
-        $num = $res[0]["COUNT(*)"];
-        $sql2= "select name from station";
-
-        return $this->db->select($sql2);
+        if($this->db->openConnection()){
+            if($header=='movies.php'){
+                $newheader=1;
+            }
+            else if($header=='shows.php'){
+                $newheader=2;
+            }
+            else if($header=='plays.php'){
+                $newheader=3;
+            }
+            else{
+                $newheader=4;
+            }
+            $sql3= "SELECT 
+            ticket.movie_id,
+            SUM(ticket.ticket_num) AS sum_1,
+            halls.name AS hall_name,
+            halls.numofseats
+        FROM 
+            ticket
+        INNER JOIN 
+            halls ON ticket.nme = halls.name
+        WHERE 
+            ticket.movie_id IN 
+            (SELECT 
+                id 
+            FROM 
+                admin
+            WHERE 
+                category = '$newheader')
+        GROUP BY 
+            ticket.movie_id, halls.name, halls.numofseats;";
+            $res=$this->db->select($sql3);
+            $num = count($res);
+            return $res;
+        }
 }
 }
 public function insertTicket($number,$src,$dest,$start,$end,$Prc,$pas,$date){

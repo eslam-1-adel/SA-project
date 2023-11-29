@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2023 at 10:14 PM
+-- Generation Time: Nov 29, 2023 at 11:51 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -74,7 +74,7 @@ INSERT INTO `admin` (`id`, `name`, `description`, `category`, `Hname`, `price`, 
 --
 
 CREATE TABLE `halls` (
-  `name` varchar(50) NOT NULL,
+  `name` varchar(20) NOT NULL,
   `numofseats` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -84,9 +84,9 @@ CREATE TABLE `halls` (
 
 INSERT INTO `halls` (`name`, `numofseats`) VALUES
 ('H1', 60),
-('H2', 45),
-('H3', 50),
-('H4', 55);
+('H2', 55),
+('H3', 45),
+('H4', 50);
 
 -- --------------------------------------------------------
 
@@ -98,32 +98,35 @@ CREATE TABLE `ticket` (
   `id` int(11) NOT NULL,
   `movie_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
-  `ticket_num` int(11) NOT NULL
+  `ticket_num` int(11) NOT NULL,
+  `nme` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ticket`
 --
 
-INSERT INTO `ticket` (`id`, `movie_id`, `users_id`, `ticket_num`) VALUES
-(1, 4, 2, 5),
-(2, 6, 2, 3),
-(3, 9, 2, 4),
-(4, 14, 2, 1),
-(5, 16, 2, 5),
-(6, 6, 3, 6),
-(7, 7, 3, 2),
-(8, 15, 3, 2),
-(9, 16, 3, 15),
-(10, 3, 4, 3),
-(11, 4, 4, 2),
-(12, 9, 4, 10),
-(13, 10, 4, 7),
-(14, 18, 4, 1),
-(15, 1, 5, 5),
-(16, 2, 5, 6),
-(17, 8, 5, 7),
-(19, 19, 5, 12);
+INSERT INTO `ticket` (`id`, `movie_id`, `users_id`, `ticket_num`, `nme`) VALUES
+(1, 4, 2, 5, 'H1'),
+(2, 6, 2, 3, 'H3'),
+(3, 9, 2, 4, 'H3'),
+(4, 14, 2, 1, 'H2'),
+(5, 16, 2, 5, 'H1'),
+(6, 6, 3, 6, 'H3'),
+(7, 7, 3, 2, 'H2'),
+(8, 15, 3, 2, 'H3'),
+(9, 16, 3, 15, 'H1'),
+(10, 3, 4, 3, 'H3'),
+(11, 4, 4, 2, 'H1'),
+(12, 9, 4, 10, 'H3'),
+(13, 10, 4, 7, 'H3'),
+(14, 18, 4, 1, 'H3'),
+(15, 1, 5, 5, 'H1'),
+(16, 2, 5, 6, 'H2'),
+(17, 8, 5, 7, 'H4'),
+(19, 19, 5, 12, 'H4'),
+(20, 5, 5, 4, 'H4'),
+(23, 11, 5, 2, 'H2');
 
 -- --------------------------------------------------------
 
@@ -163,7 +166,7 @@ ALTER TABLE `admin`
 -- Indexes for table `halls`
 --
 ALTER TABLE `halls`
-  ADD UNIQUE KEY `name` (`name`);
+  ADD PRIMARY KEY (`name`);
 
 --
 -- Indexes for table `ticket`
@@ -194,7 +197,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `users`

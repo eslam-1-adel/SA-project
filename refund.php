@@ -110,7 +110,13 @@ for ($x = 0; $x < $row; $x++) {
             echo "<p>Time:  $time</p>";
             echo "<p>Price: $price</p>";
             echo "<p>Ticket ID: $id1</p>";
-            echo "<p>Ticket Nummber: $ticket_num</p>";
+            echo "<p>Ticket Number: $ticket_num";
+            if ($ticket_num >= 10) {
+                echo '<span style="color:orange; font-weight:bold"> You got 10% discount <i class="fas fa-tag" style="color: orange;"></i></span>';
+            }
+            echo "</p>";
+
+            
             echo "<form action='refund.php' method ='post'>";
             
             // Add a hidden input field to carry the ticket ID

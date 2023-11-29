@@ -48,8 +48,10 @@
 require_once "authcontroller/Authcontroller.php";
 $auth = new AuthController;
 $number=0;
+$number1=0;
 $header=basename($_SERVER['PHP_SELF']);//movies.php
 $results = $auth ->Selectuser($number,$header);
+$res = $auth ->handle($number1,$header);
 if(isset($_POST['quantity'])){
   if(!empty($_POST['quantity'])){
     $quantity= $_POST['quantity'];
@@ -99,16 +101,31 @@ select {
 }
 
         </style>
-      <?php for ($i = 0; $i < $number; $i++) {
-        echo '<div class="col-xl-4 col-md-6"><form action"#" method="post"><div class="post-item position-relative h-100">';
+      <?php  for ($i = 0; $i < $number; $i++) {
+        $a=0;
+        echo '<div class="col-xl-4 col-md-6"><form action="' . $header . '" method="POST"><div class="post-item position-relative h-100">';
         
               echo'<div class="post-img position-relative overflow-hidden"><img src="'.$results[$i]['image'].'" style="width:500px;height:320px"class="img-fluid" alt=""><select class="post-date" name="date" id="date"><option>' . $results[$i]['date'] . '</option></select></div>';
 
               echo'<div class="post-content d-flex flex-column"><select class ="post-title" name="name" id="name"><option>' . $results[$i]['name'] . '</option></select></h3>';
 
                 echo'<div class="meta d-flex align-items-center"><div class="d-flex align-items-center"><i class="bi bi-folder2"></i> <span class="ps-2">'.$results[$i]['description'].'</span></div></div>';
-                echo '<label style="margin-top:10px;">Hall Name :  <select name="hallname" id="hallname"><option>' . $results[$i]['Hname'] . '</option></select></label>';
-                echo'<label style="margin-top:10px;">Time Begin & End : <select name="time" id="time"><option>' . $results[$i]['time'] . '</option></select></label>';
+                echo '<label style="margin-top:10px;">Hall Name: <select name="hallname" id="hallname">';
+                echo '<option>' . $results[$i]['Hname'];
+                for ($j =0; $j < $number1; $j++){
+                  
+                  if($results[$i]['id']==$res[$j]['movie_id']) {
+                    $a++;
+                    break;
+                  }
+                }
+                if($a==0){
+                    echo '</select><span style="color:red;"> No ticket is booked.</span></label>';
+                }
+                else{
+                  echo '</select><span style="color:red;"> Remaining Seats : '. ($res[$j]['numofseats'] - $res[$j]['sum_1']) . '</span></label>';
+                }
+                  echo'<label style="margin-top:10px;">Time Begin & End : <select name="time" id="time"><option>' . $results[$i]['time'] . '</option></select></label>';
                 echo'<label style="margin-top:10px;">Price For One Ticket : '.$results[$i]['price'].'</label>';
                 echo'<hr>';
                 echo'<label for="name" class="form-label" style="margin-bottom:12px;">Number Of Tickets : </label> <input type="number" id="for1" name="quantity" min="1" max="20"></td>';
