@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2023 at 11:51 AM
+-- Generation Time: Nov 30, 2023 at 01:18 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -99,34 +99,37 @@ CREATE TABLE `ticket` (
   `movie_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
   `ticket_num` int(11) NOT NULL,
-  `nme` varchar(20) NOT NULL
+  `nme` varchar(20) NOT NULL,
+  `pay` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ticket`
 --
 
-INSERT INTO `ticket` (`id`, `movie_id`, `users_id`, `ticket_num`, `nme`) VALUES
-(1, 4, 2, 5, 'H1'),
-(2, 6, 2, 3, 'H3'),
-(3, 9, 2, 4, 'H3'),
-(4, 14, 2, 1, 'H2'),
-(5, 16, 2, 5, 'H1'),
-(6, 6, 3, 6, 'H3'),
-(7, 7, 3, 2, 'H2'),
-(8, 15, 3, 2, 'H3'),
-(9, 16, 3, 15, 'H1'),
-(10, 3, 4, 3, 'H3'),
-(11, 4, 4, 2, 'H1'),
-(12, 9, 4, 10, 'H3'),
-(13, 10, 4, 7, 'H3'),
-(14, 18, 4, 1, 'H3'),
-(15, 1, 5, 5, 'H1'),
-(16, 2, 5, 6, 'H2'),
-(17, 8, 5, 7, 'H4'),
-(19, 19, 5, 12, 'H4'),
-(20, 5, 5, 4, 'H4'),
-(23, 11, 5, 2, 'H2');
+INSERT INTO `ticket` (`id`, `movie_id`, `users_id`, `ticket_num`, `nme`, `pay`) VALUES
+(1, 4, 2, 5, 'H1', 1),
+(2, 6, 2, 3, 'H3', 0),
+(3, 9, 2, 4, 'H3', 0),
+(4, 14, 2, 1, 'H2', 1),
+(5, 16, 2, 5, 'H1', 0),
+(6, 6, 3, 6, 'H3', 1),
+(7, 7, 3, 2, 'H2', 0),
+(8, 15, 3, 2, 'H3', 0),
+(9, 16, 3, 15, 'H1', 1),
+(10, 3, 4, 3, 'H3', 0),
+(11, 4, 4, 2, 'H1', 1),
+(12, 9, 4, 10, 'H3', 0),
+(13, 10, 4, 7, 'H3', 1),
+(14, 18, 4, 1, 'H3', 0),
+(16, 2, 5, 6, 'H2', 0),
+(17, 8, 5, 7, 'H4', 0),
+(19, 19, 5, 12, 'H4', 1),
+(20, 5, 5, 4, 'H4', 0),
+(23, 11, 5, 2, 'H2', 1),
+(27, 17, 5, 18, 'H3', 0),
+(30, 19, 2, 4, 'H4', 0),
+(33, 1, 5, 5, 'H1', 0);
 
 -- --------------------------------------------------------
 
@@ -197,7 +200,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `users`
