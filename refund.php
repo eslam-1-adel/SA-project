@@ -100,6 +100,7 @@ for ($x = 0; $x < $row; $x++) {
             $hname = $ar[$index]['Hname'];
             $time = $ar[$index]['time'];
             $price = $ar[$index]['price'];
+            $ar[$index]['pay']==1?$pay='online':$pay='offline';
 
             echo "<div class='col-lg-4 col-md-6' data-aos='fade-up' data-aos-delay='100'>";
             echo "<div class='service-item  position-relative'>";
@@ -113,6 +114,11 @@ for ($x = 0; $x < $row; $x++) {
             echo "<p>Ticket Number: $ticket_num";
             if ($ticket_num >= 10) {
                 echo '<span style="color:orange; font-weight:bold"> You got 10% discount <i class="fas fa-tag" style="color: orange;"></i></span>';
+            }
+            echo "</p>";
+            echo "<p>Type of Payment : $pay";
+            if ($pay == 'online') {
+                echo '<span style="color:orange; font-weight:bold"> You got 5% discount <i class="fas fa-tag" style="color: orange;"></i></span>';
             }
             echo "</p>";
 

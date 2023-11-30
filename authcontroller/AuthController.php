@@ -137,13 +137,13 @@ public function status($status ,$ticketno)
         }
 
     }
-public function insrtick($name,$hall,$time,$date,$quantity,$id){
+public function insrtick($name,$hall,$time,$date,$quantity,$id,$pay){
     $this->db= new dbcontroller ;
     if($this->db->openConnection()){
         $sql1="select `id` from admin where name='$name'and Hname='$hall'and time='$time'and date='$date'";
         $res1=$this->db->select($sql1);
         $mvid=$res1[0]["id"];
-        $sql2 = "insert into ticket (movie_id, users_id, ticket_num,nme) VALUES ('$mvid','$id','$quantity','$hall')";
+        $sql2 = "insert into ticket (movie_id, users_id, ticket_num,nme,pay) VALUES ('$mvid','$id','$quantity','$hall','$pay')";
         $this->db->insert($sql2);
 }
 }
@@ -359,7 +359,7 @@ public function insertTick( $del1,$del2,$del3,$del4){
 public function my_ticket($user){
     $this->db= new dbcontroller ;
     if($this->db->openConnection()){
-        $sql = "select ticket.id,ticket.ticket_num,admin.name,admin.description,admin.Hname,admin.price,admin.time,admin.image from ticket join admin on ticket.movie_id=admin.id where ticket.users_id=$user;";
+        $sql = "select ticket.id,ticket.ticket_num,ticket.pay,admin.name,admin.description,admin.Hname,admin.price,admin.time,admin.image from ticket join admin on ticket.movie_id=admin.id where ticket.users_id=$user;";
        try{
         $stmt = $this->db->select($sql);
         return $stmt;

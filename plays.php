@@ -52,14 +52,21 @@ $number1=0;
 $header=basename($_SERVER['PHP_SELF']);//movies.php
 $results = $auth ->Selectuser($number,$header);
 $res = $auth ->handle($number1,$header);
-if(isset($_POST['quantity'])){
-  if(!empty($_POST['quantity'])){
+if(isset($_POST['quantity'])&&isset($_POST['pay'])){
+  if(!empty($_POST['quantity'])&&!empty($_POST['pay'])){
     $quantity= $_POST['quantity'];
+    $pay=$_POST['pay'];
+    if($pay==='online'){
+      $newpay=1;
+    } 
+    else{
+      $newpay=0;
+    }
     $name= $_POST['name'];
     $hall= $_POST['hallname'];
     $time= $_POST['time'];
     $date= $_POST['date'];
-    $sub=$auth->insrtick($name,$hall,$time,$date,$quantity,$id);
+    $sub=$auth->insrtick($name,$hall,$time,$date,$quantity,$id,$newpay);
   }
 }
 ?>
@@ -96,8 +103,17 @@ select {
     color: inherit;
     outline: none;
 }
-</style>
-<?php  for ($i = 0; $i < $number; $i++) {
+.radio-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.radio-buttons label {
+  margin-right: 20px; /* Adjust this value to change the space between the labels */
+}
+
+        </style>
+      <?php  for ($i = 0; $i < $number; $i++) {
         $a=0;
         echo '<div class="col-xl-4 col-md-6"><form action="' . $header . '" method="POST"><div class="post-item position-relative h-100">';
         
@@ -124,7 +140,15 @@ select {
                   echo'<label style="margin-top:10px;">Time Begin & End : <select name="time" id="time"><option>' . $results[$i]['time'] . '</option></select></label>';
                 echo'<label style="margin-top:10px;">Price For One Ticket : '.$results[$i]['price'].'</label>';
                 echo'<hr>';
-                echo'<label for="name" class="form-label" style="margin-bottom:12px;">Number Of Tickets : </label> <input type="number" id="for1" name="quantity" min="1" max="20"></td>';
+                echo '<label for="name" class="form-label" style="margin-bottom:12px;">Number Of Tickets : </label> <input type="number" id="for1" name="quantity" min="1" max="' . min($res[$j]['numofseats'] - $res[$j]['sum_1'], 20) . '"></td>';
+                echo'<div class="radio-buttons">
+                <label>Type Of Payment : </label>
+                <label for="online">Online</label>
+                <input type="radio" id="online" name="pay" value="online">
+              
+                <label for="offline" style="margin-left:20px;">Offline</label>
+                <input type="radio" id="offline" name="pay" value="offline">
+              </div>';
                 echo'<button type="submit" class="btn btn-warning" style=" margin-top:12px;">Submit</button>';
                 echo'<div>';
                 echo'<a href="'.$results[$i]['link'].'"style=" margin-top:10px;">
