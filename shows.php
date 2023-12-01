@@ -146,7 +146,7 @@ select {
                   echo'<label style="margin-top:10px;">Time Begin & End : <select name="time" id="time"><option>' . $results[$i]['time'] . '</option></select></label>';
                 echo'<label style="margin-top:10px;">Price For One Ticket : '.$results[$i]['price'].'</label>';
                 echo'<hr>';
-                echo '<label for="name" class="form-label" style="margin-bottom:12px;">Number Of Tickets : </label> <input type="number" id="for1" name="quantity" min="1" max="' . min($res[$j]['numofseats'] - $res[$j]['sum_1'], 20) . '"></td>';
+                echo '<label for="name" class="form-label" style="margin-bottom:12px;">Number Of Tickets : </label> <input type="number" id="for1" name="quantity" min="1" max="' . (isset($res[$j]['numofseats']) ? min($res[$j]['numofseats'] - $res[$j]['sum_1'], 20) : 20) . '"></td>';
                 echo'<div class="radio-buttons">
                 <label>Type Of Payment : </label>
                 <label for="online">Online</label>
