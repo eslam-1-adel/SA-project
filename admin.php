@@ -88,10 +88,10 @@ if(isset($_POST["movieName"])&&isset($_POST["description"])&&isset($_POST["categ
     <div class="breadcrumbs d-flex align-items-center" style="background-image: url('assets/img/04.jpg');">
       <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
 
-        <h2>Admin</h2>
+        <h2>Add To Cinema</h2>
         <ol>
           <li><a href="index.php">Home</a></li>
-          <li>Admin</li>
+          <li>Add To Cinema</li>
         </ol>
 
       </div>

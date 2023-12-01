@@ -24,6 +24,7 @@ $header=basename($_SERVER['PHP_SELF']);//movies.php
     echo '<li><a href="admin.php" ' . ($header == 'admin.php' ? 'class="active"' : '') . '>Add To Cinema</a></li>';
     echo '<li><a href="deladmin.php" ' . ($header == 'deladmin.php' ? 'class="active"' : '') . '>Remove From Cinema</a></li>';
     echo '<li><a href="Add.php" ' . ($header == 'Add.php' ? 'class="active"' : '') . '>Add Halls</a></li>';
+    echo '<li><a href="reports.php" ' . ($header == 'reports.php' ? 'class="active"' : '') . '>Generate Reports</a></li>';
     echo '<li><a href="delete.php" ' . ($header == 'delete.php' ? 'class="active"' : '') . '>Delete customer</a></li>';
 ?>
 
