@@ -124,6 +124,7 @@ select {
                 echo'<div class="meta d-flex align-items-center"><div class="d-flex align-items-center"><i class="bi bi-folder2"></i> <span class="ps-2">'.$results[$i]['description'].'</span></div></div>';
                 echo '<label style="margin-top:10px;">Hall Name: <select name="hallname" id="hallname">';
                 echo '<option>' . $results[$i]['Hname'];
+                echo '<option>' . $results[$i]['Hname'].'</select></label>';
                 for ($j =0; $j < $number1; $j++){
                   
                   if($results[$i]['id']==$res[$j]['movie_id']) {
@@ -132,10 +133,10 @@ select {
                   }
                 }
                 if($a==0){
-                    echo '</select><span style="color:red;"> No ticket is booked.</span></label>';
+                    echo '<span style="color:red; margin-top:10px;"> No ticket is booked.</span>';
                 }
                 else{
-                  echo '</select><span style="color:red;"> Remaining Seats : '. ($res[$j]['numofseats'] - $res[$j]['sum_1']) . '</span></label>';
+                  echo '<span style="color:red; margin-top:10px;"> Remaining Seats : '. ($res[$j]['numofseats'] - $res[$j]['sum_1']) . '</span>';
                 }
                   echo'<label style="margin-top:10px;">Time Begin & End : <select name="time" id="time"><option>' . $results[$i]['time'] . '</option></select></label>';
                 echo'<label style="margin-top:10px;">Price For One Ticket : '.$results[$i]['price'].'</label>';
