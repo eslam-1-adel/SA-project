@@ -77,11 +77,11 @@
 
               <div class="post-content d-flex flex-column">
 
-                <h3 class="post-title"> Diaa Eldin Mahmoud Sobhy </h3>
+                <h3 class="post-title"> Diaa-Eldin Mahmoud </h3>
 
                 <div class="meta d-flex align-items-center">
                   <div class="d-flex align-items-center">
-                     <span class="ps-2">team leader </span>
+                     <span class="ps-2" style="font-size:20px;">Team leader </span>
                   </div>
                 </div>
 
@@ -99,11 +99,11 @@
 
               <div class="post-content d-flex flex-column">
 
-                <h3 class="post-title">Eslam Adel Ahmed AbdelRazek </h3>
+                <h3 class="post-title">Eslam Adel</h3>
 
                 <div class="meta d-flex align-items-center">
                   <div class="d-flex align-items-center">
-                    <span class="ps-2">comedy</span>
+                    <span class="ps-2" style="font-size:20px;">Team Member</span>
                   </div>
                 </div>
 
@@ -121,11 +121,11 @@
 
               <div class="post-content d-flex flex-column">
 
-                <h3 class="post-title">Abdelrahman </h3>
+                <h3 class="post-title">Abdelrahman Abdelaziz</h3>
 
                 <div class="meta d-flex align-items-center">
                   <div class="d-flex align-items-center">
-                    <span class="ps-2">comedy</span>
+                    <span class="ps-2" style="font-size:20px;">Team Member</span>
                   </div>
                 </div>
 
@@ -143,11 +143,11 @@
 
               <div class="post-content d-flex flex-column">
 
-                <h3 class="post-title">Steven</h3>
+                <h3 class="post-title">Steven Ayman</h3>
 
                 <div class="meta d-flex align-items-center">
                   <div class="d-flex align-items-center">
-                     <span class="ps-2">comedy</span>
+                     <span class="ps-2" style="font-size:20px;">Team Member</span>
                   </div>
                 </div>
 
@@ -165,11 +165,11 @@
 
               <div class="post-content d-flex flex-column">
 
-                <h3 class="post-title">Tarek</h3>
+                <h3 class="post-title">Tarek Mohammed</h3>
 
                 <div class="meta d-flex align-items-center">
                   <div class="d-flex align-items-center">
-                     <span class="ps-2">comedy</span>
+                     <span class="ps-2" style="font-size:20px;">Team Member</span>
                   </div>
                 </div>
 
@@ -191,7 +191,7 @@
 
                 <div class="meta d-flex align-items-center">
                   <div class="d-flex align-items-center">
-                    <span class="ps-2">comedy</span>
+                    <span class="ps-2" style="font-size:20px;">Team Member</span>
                   </div>
                 </div>
 
