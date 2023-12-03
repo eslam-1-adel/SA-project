@@ -1,114 +1,147 @@
 <?php
 require_once "authcontroller/Authcontroller.php";
 $auth = new AuthController;
-$number=0;
-$results = $auth ->SelectHall($number);
-if(isset($_POST["movieName"])&&isset($_POST["description"])&&isset($_POST["category"])&&isset($_POST["Hall"])&&isset($_POST["quantity"])&&isset($_POST["date"])&&isset($_POST["timeSlot"])&&isset($_POST["image"])&&isset($_POST["link"])){
-  if(!empty($_POST["movieName"])&&!empty($_POST["description"])&&!empty($_POST["category"])&&!empty($_POST["Hall"])&&!empty($_POST["quantity"])&&!empty($_POST["date"])&&!empty($_POST["timeSlot"])&&!empty($_POST["image"])&&!empty($_POST["link"])){
-    $name = $_POST["movieName"];
-    $des = $_POST["description"];
-    if($_POST["category"]=='Movies'){
-      $cat=1;
+$number = 0;
+$results = $auth->SelectHall($number);
+
+// Check if the form is submitted
+if (isset($_POST["movieName"]) && isset($_POST["description"]) && isset($_POST["category"]) && isset($_POST["Hall"]) && isset($_POST["quantity"]) && isset($_POST["date"]) && isset($_POST["timeSlot"]) && isset($_POST["link"]) && isset($_POST['submit'])) {
+    if (!empty($_POST["movieName"]) && !empty($_POST["description"]) && !empty($_POST["category"]) && !empty($_POST["Hall"]) && !empty($_POST["quantity"]) && !empty($_POST["date"]) && !empty($_POST["timeSlot"]) && !empty($_POST["link"])) {
+
+        $uploadDir = 'uploads/';  // Directory to store the uploaded images
+
+        // Get the uploaded file information
+        $fileName = basename($_FILES['image']['name']);
+        $targetFilePath = $uploadDir . $fileName;
+        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+        // Allow certain file formats
+        $allowedTypes = array('jpg', 'jpeg', 'png', 'gif');
+
+        // Check if the file is uploaded successfully
+        if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            // Move the uploaded file to the target directory
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
+                // Image uploaded successfully, now proceed with database insertion
+                $image = $targetFilePath;
+
+                // Example: Update database with $image
+                $name = $_POST["movieName"];
+                $des = $_POST["description"];
+                if ($_POST["category"] == 'Movies') {
+                    $cat = 1;
+                } else if ($_POST["category"] == 'TV Show') {
+                    $cat = 2;
+                } else if ($_POST["category"] == 'Live Plays') {
+                    $cat = 3;
+                } else {
+                    $cat = 4;
+                }
+                $hall = $_POST["Hall"];
+                $price = $_POST["quantity"];
+                $date = $_POST["date"];
+                $time = $_POST["timeSlot"];
+                $link = $_POST["link"];
+
+                // Add your database insertion logic here
+                if ($auth->admin($name, $des, $cat, $hall, $price, $date, $time, $image, $link)) {
+                   
+                    echo "<script>alert('Added Successfully');window.location='admin.php';</script>";
+                } else {
+                    echo 'Failed to add movie';
+                    // If database insertion fails, you may want to delete the uploaded image
+                    unlink($targetFilePath);
+                    echo "<script>alert('Failed to add movie');window.location='admin.php';</script>";
+                }
+            } else {
+               
+                echo "<script>alert('Failed to add movie');window.location='admin.php';</script>";
+            }
+        } else {
+           
+            echo "<script>alert('Failed to add movie');window.location='admin.php';</script>";
+        }
+    } else {
+       
+        echo "<script>alert('Failed to add movie');window.location='admin.php';</script>";
     }
-    else if($_POST["category"]=='TV Show'){
-      $cat=2;
-    }
-    else if($_POST["category"]=='Live Plays'){
-      $cat=3;
-    }
-    else{
-      $cat=4;
-    }
-    $hall = $_POST["Hall"];
-    $price = $_POST["quantity"];
-    $date=$_POST["date"];
-    $time = $_POST["timeSlot"];
-    $image= $_POST["image"];
-    $link= $_POST["link"];
-    if($auth->admin($name,$des,$cat,$hall,$price,$date,$time,$image,$link)){
-      echo "<script>alert('Added Successfully');window.location='admin.php';</script>";
-    }
-    else{
-      echo "<script>alert('Failed to add movie');window.location='admin.php';</script>";
-    }
-  }
 }
 ?>
+<!-- The rest of your HTML code remains unchanged -->
+
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Admin - Add To Cinema</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    <title>Admin - Add To Cinema</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="assets/img/06.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="assets/img/06.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: UpConstruction
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/upconstruction-bootstrap-construction-website-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <!-- =======================================================
+    * Template Name: UpConstruction
+    * Updated: Sep 18 2023 with Bootstrap v5.3.2
+    * Template URL: https://bootstrapmade.com/upconstruction-bootstrap-construction-website-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
 </head>
 
 <body>
 
-  <!-- ======= Header ======= -->
-  <?php
-  require_once "./shared/headeradmin.php"
-  ?>
+    <!-- ======= Header ======= -->
+    <?php require_once "./shared/headeradmin.php" ?>
 
-  <main id="main">
+    <main id="main">
 
-    <!-- ======= Breadcrumbs ======= -->
-    <div class="breadcrumbs d-flex align-items-center" style="background-image: url('assets/img/04.jpg');">
-      <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+        <!-- ======= Breadcrumbs ======= -->
+        <div class="breadcrumbs d-flex align-items-center" style="background-image: url('assets/img/04.jpg');">
+            <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
 
-        <h2>Add To Cinema</h2>
-        <ol>
-          <li><a href="index.php">Home</a></li>
-          <li>Add To Cinema</li>
-        </ol>
+                <h2>Add To Cinema</h2>
+                <ol>
+                    <li><a href="index.php">Home</a></li>
+                    <li>Add To Cinema</li>
+                </ol>
 
-      </div>
-    </div><!-- End Breadcrumbs -->
+            </div>
+        </div><!-- End Breadcrumbs -->
 
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services section-bg">
-      <div class="container" >
+        <!-- ======= Services Section ======= -->
+        <section id="services" class="services section-bg">
+            <div class="container">
 
-        <div class="row gy-4">
+                <div class="row gy-4">
 
-          <div class="d-flex align-items-center justify-content-center">
-            <div class="service-item  position-relative">
-              
-              <h3>Add To Cinema</h3>
-              
-              <form action="#" method="POST">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <div class="service-item  position-relative">
+
+                            <h3>Add To Cinema</h3>
+
+                            <form action="#" method="POST" enctype="multipart/form-data">
   <table style="border-collapse: collapse; border: 3px solid #ccc;">
     <tr style="border-bottom: 3px solid #ccc;">
       <td style="border-right: 3px solid #ccc; width: 200px;">
@@ -194,7 +227,10 @@ if(isset($_POST["movieName"])&&isset($_POST["description"])&&isset($_POST["categ
         <label for="imageUpload" style="color:red; font-size:20px; font-weight:bold;">Image Link:</label>
       </td>
       <td>
-        <input type="text" id="image" name="image" style="width:400px; height:23px;">
+      
+        <input type="file" name="image" id="image" accept="image/*">
+        
+    
       </td>
     </tr>
     <tr style="border-bottom: 3px solid #ccc;">
@@ -207,43 +243,41 @@ if(isset($_POST["movieName"])&&isset($_POST["description"])&&isset($_POST["categ
     </tr>
     <tr>
       <td colspan="2" style="text-align:center; border-top: 3px solid #ccc;">
-        <input type="submit" value="Submit">
+      
+        <button type="submit" name="submit">Upload</button>
+    
       </td>
     </tr>
   </table>
 </form>
 
+                        </div>
+                    </div><!-- End Service Item -->
 
-
+                </div>
             </div>
-          </div><!-- End Service Item -->
+        </section>
+    </main>
 
+    <!-- ======= Footer ======= -->
+    <?php require_once "./shared/footer.php" ?>
+    <!-- End Footer -->
 
+    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-    
-  </main><!-- End #main -->
+    <div id="preloader"></div>
 
-  <!-- ======= Footer ======= -->
-  <?php
-  require_once "./shared/footer.php"
-  ?>
-  <!-- End Footer -->
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
 
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
 
 </body>
 
