@@ -427,13 +427,21 @@ public function del_tic ($ticket_id){
 
 }
 }
-public function admremove ($name,$hall,$time,$date){
+public function admremove ($name,$hall,$time,$date,&$img){
     $this->db= new dbcontroller ;
    
     if($this->db->openConnection()){
+        $sql1 = "select  `image` from admin where `name`='$name' and `Hname`='$hall' and `time` ='$time' and `date` ='$date'" ;
+        $stmt1=$this->db->select($sql1);
+        $img=$stmt1[0]['image'];
         $sql = "delete from `admin` where `name`='$name' and `Hname`='$hall' and `time` ='$time' and `date` ='$date'" ;
         try{
           $stmt=$this->db->delete($sql);
+          if (file_exists($img)) {
+            unlink($img);
+        } else {
+            echo 'File does not exist or could not be removed.';
+        }
         }catch (Exception $e){
             
         }

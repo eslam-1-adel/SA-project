@@ -24,7 +24,8 @@ if(isset($_POST['remove'])){
     $hall= $_POST['hallname'];
     $time= $_POST['time'];
     $date= $_POST['date'];
-    $auth->admremove($name,$hall,$time,$date);
+    $img="";
+    $auth->admremove($name,$hall,$time,$date,$img);
 }
 
 ?>
@@ -147,7 +148,7 @@ select {
       <?php for ($i = 0; $i < $number; $i++) {
         echo '<div class="col-xl-4 col-md-6"><form action"#" method="post"><div class="post-item position-relative h-100">';
         
-              echo'<div class="post-img position-relative overflow-hidden"><img src="'.$results[$i]['image'].'" style="width:500px;height:320px"class="img-fluid" alt=""><select class="post-date" name="date" id="date"><option>' . $results[$i]['date'] . '</option></select></div>';
+        echo '<div class="post-img position-relative overflow-hidden"><img src="' . $results[$i]['image'] . '" name="image" style="width:500px;height:320px" class="img-fluid" alt=""><select class="post-date" name="date" id="date"><option>' . $results[$i]['date'] . '</option></select></div>';
 
               echo'<div class="post-content d-flex flex-column"><select class ="post-title" name="name" id="name"><option>' . $results[$i]['name'] . '</option></select></h3>';
 

@@ -6,66 +6,71 @@ $results = $auth->SelectHall($number);
 
 // Check if the form is submitted
 if (isset($_POST["movieName"]) && isset($_POST["description"]) && isset($_POST["category"]) && isset($_POST["Hall"]) && isset($_POST["quantity"]) && isset($_POST["date"]) && isset($_POST["timeSlot"]) && isset($_POST["link"]) && isset($_POST['submit'])) {
-    if (!empty($_POST["movieName"]) && !empty($_POST["description"]) && !empty($_POST["category"]) && !empty($_POST["Hall"]) && !empty($_POST["quantity"]) && !empty($_POST["date"]) && !empty($_POST["timeSlot"]) && !empty($_POST["link"])) {
+  if (!empty($_POST["movieName"]) && !empty($_POST["description"]) && !empty($_POST["category"]) && !empty($_POST["Hall"]) && !empty($_POST["quantity"]) && !empty($_POST["date"]) && !empty($_POST["timeSlot"]) && !empty($_POST["link"])) {
 
-        $uploadDir = 'uploads/';  // Directory to store the uploaded images
+      $uploadDir = 'uploads/';  // Directory to store the uploaded images
 
-        // Get the uploaded file information
-        $fileName = basename($_FILES['image']['name']);
-        $targetFilePath = $uploadDir . $fileName;
-        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+      // Get the uploaded file information
+      $fileName = basename($_FILES['image']['name']);
+      $targetFilePath = $uploadDir . $fileName;
+      $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 
-        // Allow certain file formats
-        $allowedTypes = array('jpg', 'jpeg', 'png', 'gif');
+      // Allow certain file formats
+      $allowedTypes = array('jpg', 'jpeg', 'png', 'gif');
 
-        // Check if the file is uploaded successfully
-        if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            // Move the uploaded file to the target directory
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
-                // Image uploaded successfully, now proceed with database insertion
-                $image = $targetFilePath;
+      // Check if the file is uploaded successfully
+      if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
+          
+          // Check if the file already exists
+          $counter = 1;
+          $originalFileName = $fileName;
+          while (file_exists($targetFilePath)) {
+              $fileName = pathinfo($originalFileName, PATHINFO_FILENAME) . '_' . $counter . '.' . $fileType;
+              $targetFilePath = $uploadDir . $fileName;
+              $counter++;
+          }
 
-                // Example: Update database with $image
-                $name = $_POST["movieName"];
-                $des = $_POST["description"];
-                if ($_POST["category"] == 'Movies') {
-                    $cat = 1;
-                } else if ($_POST["category"] == 'TV Show') {
-                    $cat = 2;
-                } else if ($_POST["category"] == 'Live Plays') {
-                    $cat = 3;
-                } else {
-                    $cat = 4;
-                }
-                $hall = $_POST["Hall"];
-                $price = $_POST["quantity"];
-                $date = $_POST["date"];
-                $time = $_POST["timeSlot"];
-                $link = $_POST["link"];
+          // Move the uploaded file to the target directory
+          if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
+              // Image uploaded successfully, now proceed with database insertion
+              $image = $targetFilePath;
 
-                // Add your database insertion logic here
-                if ($auth->admin($name, $des, $cat, $hall, $price, $date, $time, $image, $link)) {
-                   
-                    echo "<script>alert('Added Successfully');window.location='admin.php';</script>";
-                } else {
-                    echo 'Failed to add movie';
-                    // If database insertion fails, you may want to delete the uploaded image
-                    unlink($targetFilePath);
-                    echo "<script>alert('Failed to add movie');window.location='admin.php';</script>";
-                }
-            } else {
-               
-                echo "<script>alert('Failed to add movie');window.location='admin.php';</script>";
-            }
-        } else {
-           
-            echo "<script>alert('Failed to add movie');window.location='admin.php';</script>";
-        }
-    } else {
-       
-        echo "<script>alert('Failed to add movie');window.location='admin.php';</script>";
-    }
-}
+              // Example: Update database with $image
+              $name = $_POST["movieName"];
+              $des = $_POST["description"];
+              if ($_POST["category"] == 'Movies') {
+                  $cat = 1;
+              } else if ($_POST["category"] == 'TV Show') {
+                  $cat = 2;
+              } else if ($_POST["category"] == 'Live Plays') {
+                  $cat = 3;
+              } else {
+                  $cat = 4;
+              }
+              $hall = $_POST["Hall"];
+              $price = $_POST["quantity"];
+              $date = $_POST["date"];
+              $time = $_POST["timeSlot"];
+              $link = $_POST["link"];
+
+              // Add your database insertion logic here
+              if ($auth->admin($name, $des, $cat, $hall, $price, $date, $time, $image, $link)) {
+                 
+                  echo "<script>alert('Added Successfully');window.location='admin.php';</script>";
+              }
+          } else {
+              // Handle the case where moving the file fails
+              echo "<script>alert('Failed to add movie');window.location='admin.php';</script>";
+          }
+      } else {
+          // Handle the case where the file upload failed
+          echo "<script>alert('Failed to add movie');window.location='admin.php';</script>";
+      }
+  } else {
+      // Handle the case where some form fields are empty
+      echo "<script>alert('Failed to add movie');window.location='admin.php';</script>";
+  }
+} 
 ?>
 <!-- The rest of your HTML code remains unchanged -->
 
