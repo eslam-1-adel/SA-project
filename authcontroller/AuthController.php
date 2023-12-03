@@ -427,7 +427,7 @@ public function del_tic ($ticket_id){
 
 }
 }
-public function admremove ($name,$hall,$time,$date,&$img){
+public function admremove ($name,$hall,$time,$date){
     $this->db= new dbcontroller ;
    
     if($this->db->openConnection()){

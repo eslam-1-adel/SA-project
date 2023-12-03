@@ -24,10 +24,8 @@ if(isset($_POST['remove'])){
     $hall= $_POST['hallname'];
     $time= $_POST['time'];
     $date= $_POST['date'];
-    $img="";
-    $auth->admremove($name,$hall,$time,$date,$img);
+    $auth->admremove($name,$hall,$time,$date);
 }
-
 ?>
 
 <!DOCTYPE html>
