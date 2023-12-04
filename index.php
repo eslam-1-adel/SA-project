@@ -197,8 +197,9 @@ if(isset($_POST["name"])&&isset($_POST["password"])){
                 </div>
 
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="newphone" placeholder="Phone" required>
-                </div>
+  <input type="text" class="form-control" name="newphone" placeholder="Phone" pattern="0?\d{10}" title="Please enter a valid 11-digit phone number" required>
+</div>
+
 
                 <div class="col-md-12 text-center">
                   <button type="submit" class="btn btn-warning">Sign UP</button>
