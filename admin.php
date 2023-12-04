@@ -198,7 +198,7 @@ if (isset($_POST["movieName"]) && isset($_POST["description"]) && isset($_POST["
         <label for="quantity" style="color:red; font-size:20px; font-weight:bold;">Price Of Ticket:</label>
       </td>
       <td>
-        <input type="number" id="quantity" name="quantity" min="30" max="400" style="width:400px; height:23px;">
+        <input type="number" required id="quantity" name="quantity" min="30" max="400" style="width:400px; height:23px;">
       </td>
     </tr>
     <tr style="border-bottom: 3px solid #ccc;">
@@ -206,7 +206,7 @@ if (isset($_POST["movieName"]) && isset($_POST["description"]) && isset($_POST["
         <label for="quantity" style="color:red; font-size:20px; font-weight:bold;">Day Date :</label>
       </td>
       <td>
-        <input type="date" id="date" name="date" style="width:400px; height:23px;">
+        <input type="date" id="date" required name="date" style="width:400px; height:23px;">
       </td>
     </tr>
     <tr style="border-bottom: 3px solid #ccc;">
@@ -214,16 +214,16 @@ if (isset($_POST["movieName"]) && isset($_POST["description"]) && isset($_POST["
         <label style="color:red; font-size:20px; font-weight:bold;">Time Slot:</label>
       </td>
       <td>
-        <input type="radio" id="slot1" name="timeSlot" value="12:3 pm">
+        <input type="radio" required id="slot1" name="timeSlot" value="12:3 pm">
         <label for="slot1">12:3 pm</label><br>
         
-        <input type="radio" id="slot2" name="timeSlot" value="3:6 pm">
+        <input type="radio" required id="slot2" name="timeSlot" value="3:6 pm">
         <label for="slot2">3:6 pm</label><br>
         
-        <input type="radio" id="slot3" name="timeSlot" value="6:9 pm">
+        <input type="radio" required id="slot3" name="timeSlot" value="6:9 pm">
         <label for="slot3">6:9 pm</label><br>
         
-        <input type="radio" id="slot4" name="timeSlot" value="9:12 midnight">
+        <input type="radio" required id="slot4" name="timeSlot" value="9:12 midnight">
         <label for="slot4">9:12 midnight</label><br>
       </td>
     </tr>
@@ -233,7 +233,7 @@ if (isset($_POST["movieName"]) && isset($_POST["description"]) && isset($_POST["
       </td>
       <td>
       
-        <input type="file" name="image" id="image" accept="image/*">
+        <input type="file" required name="image" id="image" accept="image/*">
         
     
       </td>
@@ -243,7 +243,7 @@ if (isset($_POST["movieName"]) && isset($_POST["description"]) && isset($_POST["
         <label for="youtubelink" style="color:red; font-size:20px; font-weight:bold;">Trailer Link:</label>
       </td>
       <td>
-        <input type="text" id="linj" name="link" style="width:400px; height:23px;">
+        <input type="text" id="linj" required name="link" style="width:400px; height:23px;">
       </td>
     </tr>
     <tr>
